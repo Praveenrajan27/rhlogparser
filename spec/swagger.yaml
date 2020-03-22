@@ -1,0 +1,40 @@
+swagger: "2.0"
+info:
+  title: A generic parser for CI Log files
+  description: This a simple parsing of the CI log files. It takes the CI log files as input and provides them in a structured format
+  version: 0.0.1
+paths:
+  /upload and parse:
+    post:
+      summary: Log file to be upload
+      tags:
+        - File parser
+      operationId: controller.post_file
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: formData
+          name: inputfile
+          type: file
+          description: File containing the CI logs
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                properties:
+                  operation:
+                    type: string
+                    description: Entry or Exit.
+                  filename:
+                    type: string
+                    description: Filename.
+                  linenumber:
+                    type: integer
+                    description: line number.
+                  name:
+                    type: string
+                    description: name.
