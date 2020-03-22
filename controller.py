@@ -23,6 +23,8 @@ def post_file():
     file = request.files['inputfile']
     filename = secure_filename(file.filename)
     if validate_file(filename):
+        if not os.path.exists(Config.UPLOAD_FOLDER):
+            os.makedirs(Config.UPLOAD_FOLDER)
         file.save(os.path.join(Config.UPLOAD_FOLDER, filename))
         with open(os.path.join(Config.UPLOAD_FOLDER, filename)) as f:
             myapp = CILogParser.LogParser()
